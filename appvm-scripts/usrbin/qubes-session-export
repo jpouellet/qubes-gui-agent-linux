@@ -1,0 +1,11 @@
+#!/bin/bash
+
+for kv in "$@"; do
+	k=${kv%%=*}
+	v=${kv##*=}
+	if [ -z "$v" ]; then
+		export -p "$k"
+	else
+		echo "declare -x $k=\"$v\""
+	fi
+done >> /tmp/qubes-session-env.tmp
